@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="col-md-12 col-md-offset-1">
+        <form class="navbar-form navbar-top" 
+                [formGroup]="searchbarform"> 
+                <!--(ngSubmit)="onGO(searchbarform.value)"-->
+            <div class="input-group">
+                <span class="input-group-addon" id="from">From</span>
+                <input  name="from" 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Address" 
+                        [formControl]="searchbarform.controls['from_address']"
+                        aria-describedby="from address">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="to">To</span>
+                <input  type="text" 
+                        class="form-control" 
+                        placeholder="Address"
+                        [formControl]="searchbarform.controls['to_address']" 
+                        aria-describedby="to address">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="poi_types">POI Types</span>
+                <input  type="text" 
+                        class="form-control" 
+                        placeholder="Tourist Attractions"
+                        [formControl]="searchbarform.controls['poi_types']" 
+                        aria-describedby="poi types">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="search_area">Search Area</span>
+                <input  type="text" 
+                        class="form-control" 
+                        placeholder="2"
+                        [formControl]="searchbarform.controls['search_area']" 
+                        aria-describedby="search_area">
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">{{ route_mode }}</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+                <ul class="dropdown-menu">
+                    <li role="menuitem" *ngFor="let mode of route_modes"><a class="dropdown-item" (click)="changeMode(mode)">{{mode}}</a></li>
+                    <!--li role="separator" class="divider"></li-->
+                </ul>
+            </div>
+
+            <button type="submit" class="btn btn-default" (click)="onGO(searchbarform.value)">GO</button>
+        </form>
+    </div>
+</div>

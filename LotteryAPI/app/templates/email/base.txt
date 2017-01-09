@@ -1,0 +1,5 @@
+{% block body %}{% endblock %}
+
+---
+The TopDrives.co.uk Team
+http://{{ config.EXTERNAL_HOST }}:{{ config.EXTERNAL_PORT }}

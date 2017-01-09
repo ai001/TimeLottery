@@ -1,0 +1,14 @@
+Flask==0.10.1
+Flask-Script==2.0.5
+Flask-WTF==0.12
+flask-mongoengine==0.7.4
+Flask-HTTPAuth==2.2.0
+Jinja2==2.7.1
+MarkupSafe==0.18
+Werkzeug==0.9.4
+itsdangerous==0.23
+passlib==1.6.1
+Flask-Mail
+flask-restful
+Pillow
+Flask-Cache

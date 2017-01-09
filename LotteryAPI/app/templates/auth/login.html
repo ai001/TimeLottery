@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="row-fluid">
+    <div class="col-sm-8 col-sm-offset-2">
+        <h1>Login</h1>
+        <div class="well">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endif %}
+
+            {% from "_formhelpers.html" import render_field %}
+
+            <form method="POST" action="{{ url_for('auth_web.login')}}" role="form">
+
+                {{ form.hidden_tag() }}
+                {{ render_field(form.email, class='form-control', value=session.form_email) }}
+                {{ render_field(form.password, **{"class": "form-control", "aria-described-by": "passwordHelpBlock"}) }}
+
+                <span id="passwordHelpBlock" class="help-block"><a href="{{ url_for('auth_web.forgot') }}">Forgot password?</a></span>
+                <span class="pull-right">
+                    {% if session.form_email %}
+                        {{ render_field(form.remember_me, checked=True) }}
+                    {% else %}
+                        {{ render_field(form.remember_me) }}
+                    {% endif %}
+                </span>
+
+
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div class="clearfix"></div>
+            Not yet signed up? Please <a href="{{ url_for('auth_web.register')}}">Register for an account</a>.
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

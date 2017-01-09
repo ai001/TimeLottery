@@ -1,0 +1,55 @@
+<div class="container">
+    <h2>Administrator Dashboard</h2>
+</div>
+
+<div id="tabs" class="container">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#users" data-toggle="tab">Users</a>
+        </li>
+        <li>
+            <a href="#stats" data-toggle="tab">Stats</a>
+        </li>
+        <li>
+            <a href="#billing" data-toggle="tab">Billing</a>
+        </li>
+    </ul>
+
+    <div class="tab-content ">
+        <div class="tab-pane active" id="users">
+            <h3>All registered users</h3>
+            <user-edit></user-edit>
+            <div class="row">
+                <div class="col-md-4">
+                    <input *ngIf="config.filtering" placeholder="Filter all columns" [ngTableFiltering]="config.filtering" class="form-control"
+                        (tableChanged)="onChangeTable(config)" />
+                </div>
+            </div>
+            <br>
+            <div *ngIf="loading == 'fired'">
+                <i class="fa fa-spinner fa-spin fa-2x"></i> Loading...
+            </div>
+            <div *ngIf="loading == 'error'">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>Unable to load users!
+                </div>
+            </div>
+            <div *ngIf="loading == 'loaded'">
+                <ng-table [config]="config" (tableChanged)="onChangeTable(config)" (cellClicked)="onCellClick($event)" [rows]="rows" [columns]="columns">
+                </ng-table>
+            </div>
+            <pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page" [totalItems]="length" [itemsPerPage]="itemsPerPage"
+                [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false" (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event">
+            </pagination>
+            <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
+
+        </div>
+        <div class="tab-pane" id="stats">
+            <h3>Statistics</h3>
+        </div>
+        <div class="tab-pane" id="billing">
+            <h3>Billing Info</h3>
+        </div>
+    </div>
+</div>

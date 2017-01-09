@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+{% from "_profilehelpers.html" import render_field %}
+
+<div class="container-fluid">
+    <p>
+    <h3>User Profile</h3>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-3">
+            <div class="text-center">
+                <img class="avatar img-circle" width="100" height="100" src="{{ url_for('auth_web.get_avatar_img', updated=session.updated) }}"
+                     alt="avatar"/>
+                <div id="field_div" style="display: none;">
+                    <form method="POST" action="{{ url_for('auth_web.profile', updated=session.updated)}}" enctype=multipart/form-data role="form">
+                        {{ form_avatar.hidden_tag() }}
+                        {{ render_field(form_avatar.file, class='form-control') }}
+                        {{ render_field(form_avatar.upload, class='btn btn-default') }}
+                    </form>
+                </div>
+                <div id="readonly_div">
+                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            {% if error %}
+            <div class="alert alert-danger alert-dismissable" role="alert">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-exclamation-triangle"></i>
+            </div>
+            {% endif %}
+            <!--h3>Personal info</h3-->
+            <form class="form-horizontal" method="POST" action="{{ url_for('auth_web.profile', updated=session.updated)}}" role="form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Personal Details</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.first_name, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.first_name.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.first_name.data }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.last_name, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.last_name.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.last_name.data }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.gender, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.gender.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;
+                                        {% if form_profile.gender.data == 'M' %}
+                                            Male &nbsp;<i style="cursor: pointer;" class="fa fa-mars"></i>
+                                        {% elif form_profile.gender.data == 'F'  %}
+                                            Female &nbsp;<i style="cursor: pointer;" class="fa fa-venus"></i>
+                                        {% else %}
+                                            None &nbsp;<i style="cursor: pointer;" class="fa fa-genderless"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.date_of_birth, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.date_of_birth.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.date_of_birth.data }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Address</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_door_no_name, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_door_no_name.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_door_no_name.data }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_street, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_street.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_street.data }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_line2, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_line2.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_line2.data }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_city, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_city.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_city.data }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_county, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_county.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_county.data }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_postcode, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_postcode.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_postcode.data }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="field_div" style="display: none;">
+                                    {{ render_field(form_profile.address_country, class='form-control') }}
+                                </div>
+                                <div id="readonly_div">
+                                    {{ form_profile.address_country.label }}
+                                    <span>&ensp;<i style="cursor: pointer;" class="edit fa fa-pencil">&nbsp;<i>edit</i></i>
+                                        <div class="clearfix"></div>
+                                        &ensp;{{ form_profile.address_country.data }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--div class="form-group">
+                  <label class="col-lg-3 control-label">Time Zone:</label>
+                  <div class="col-lg-8">
+                    <div class="ui-select">
+                      <select id="user_time_zone" class="form-control">
+                        <option value="Hawaii">(GMT-10:00) Hawaii</option>
+                        <option value="Alaska">(GMT-09:00) Alaska</option>
+                        <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+                        <option value="Arizona">(GMT-07:00) Arizona</option>
+                        <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+                        <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
+                        <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+                        <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Username:</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" value="janeuser">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Password:</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="password" value="11111122333">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Confirm password:</label>
+                  <div class="col-md-8">
+                    <input class="form-control" type="password" value="11111122333">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 control-label"></label>
+                  <p-->
+                <div class="col-md-8">
+                    {{ render_field(form_profile.save, class='btn btn-primary') }}
+                    <!--input type="submit" class="btn btn-primary" value="save"-->
+                    <span></span>
+                    {{ render_field(form_profile.cancel, class='btn btn-default') }}
+                    <!--input type="reset" name="btn" class="btn btn-default" value="cancel"-->
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+<hr>
+
+{% endblock %}

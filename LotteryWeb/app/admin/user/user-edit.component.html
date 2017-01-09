@@ -1,0 +1,175 @@
+<!-- control modal from parent component -->
+<div bsModal #userEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideUserEditModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Edit user: {{ userDetail?.email }}</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Personal Details &ensp;
+            <span *ngIf="persLoading == 'fired'">
+                <i class="fa fa-spinner fa-spin fa-1x"></i> Loading...
+            </span>
+            <span *ngIf="persLoading == 'error'">
+              <span class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></span>
+              <span class="sr-only text-danger">Error:</span><span class="text-danger">Unable to load user personal detail!</span>
+            </span>
+              <span (click)="PersEditEnable()" class="pull-right">&ensp;
+                <i class="lock fa" [class.fa-unlock-alt]="persEdit" [class.fa-lock]="!persEdit"></i>&nbsp;
+                <i style="cursor: pointer;" class="edit fa fa-edit">&nbsp;<i>edit</i></i>
+              </span>
+          </div>
+          <div class="panel-body" id="edit_form">
+            <div class="form-group">
+              <div class="col-lg-4">
+                <label for="first_name">First Name</label>
+                <div class="clearfix"></div>
+                <div *ngIf="persEdit == true">
+                  <input class="form-control" id="first_name" name="first_name" type="text" value="{{ userDetail?.first_name }}">
+                </div>
+                <div *ngIf="persEdit != true">
+                  <input class="form-control" readonly id="first_name" name="first_name" type="text" value="{{ userDetail?.first_name }}">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <label for="first_name">Last Name</label>
+                <div class="clearfix"></div>
+                <div *ngIf="persEdit == true">
+                  <input class="form-control" id="last_name" name="last_name" type="text" value="{{ userDetail?.last_name }}">
+                </div>
+                <div *ngIf="persEdit != true">
+                  <input class="form-control" readonly id="last_name" name="last_name" type="text" value="{{ userDetail?.last_name }}">
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <label for="gender">Gender</label>
+                <div class="clearfix"></div>
+                <div *ngIf="persEdit == true">
+                  <input class="form-control" id="gender" name="gender" type="text" value="{{ userDetail?.gender }}">
+                </div>
+                <div *ngIf="persEdit != true">
+                  <input class="form-control" readonly id="gender" name="gender" type="text" value="{{ userDetail?.gender }}">
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <label for="first_name">Date of Birth</label>
+                <div class="clearfix"></div>
+                <div *ngIf="persEdit == true">
+                  <input class="form-control" id="date_of_birth" name="date_of_birth" type="text" value="{{ userDetail?.date_of_birth | date: 'dd/MM/yyyy' }}">
+                </div>
+                <div *ngIf="persEdit != true">
+                  <input class="form-control" readonly id="date_of_birth" name="date_of_birth" type="text" value="{{ userDetail?.date_of_birth | date: 'dd/MM/yyyy' }}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Address &ensp;
+            <span *ngIf="persLoading == 'fired'">
+                <i class="fa fa-spinner fa-spin fa-1x"></i> Loading...
+            </span>
+            <span *ngIf="persLoading == 'error'">
+              <span class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></span>
+              <span class="sr-only text-danger">Error:</span><span class="text-danger">Unable to load user address detail!</span>
+            </span>
+              <span (click)="AddressEditEnable()" class="pull-right">&ensp;
+                <i class="lock fa" [class.fa-unlock-alt]="addrEdit" [class.fa-lock]="!addrEdit"></i>&nbsp;
+                <i style="cursor: pointer;" class="edit fa fa-edit">&nbsp;<i>edit</i></i>
+              </span>
+          </div>
+
+          <div class="panel-body" id="edit_form">
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="door">Door No/House Name</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="door" name="door" type="text" value="{{ userDetail?.address?.door_no_name }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="door" name="door" type="text" value="{{ userDetail?.address?.door_no_name }}">
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <label for="street">Street</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="street" name="street" type="text" value="{{ userDetail?.address?.street }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="street" name="street" type="text" value="{{ userDetail?.address?.street }}">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-12">
+                <label for="line_2">2<sup>nd</sup> Line</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="line_2" name="line_2" type="text" value="{{ userDetail.address?.line_2 }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="line_2" name="line_2" type="text" value="{{ userDetail?.address?.line_2 }}">
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="city">City</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="city" name="city" type="text" value="{{ userDetail.address?.city }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="city" name="city" type="text" value="{{ userDetail?.address?.city }}">
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <label for="county">County</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="county" name="county" type="text" value="{{ userDetail.address?.county }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="county" name="county" type="text" value="{{ userDetail?.address?.county }}">
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <label for="postcode">Postcode</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="postcode" name="postcode" type="text" value="{{ userDetail.address?.postcode }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="postcode" name="postcode" type="text" value="{{ userDetail?.address?.postcode }}">
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <label for="country">Country</label>
+                <div class="clearfix"></div>
+                <div *ngIf="addrEdit == true">
+                  <input class="form-control" id="country" name="country" type="text" value="{{ userDetail.address?.country }}">
+                </div>
+                <div *ngIf="addrEdit != true">
+                  <input class="form-control" readonly id="country" name="country" type="text" value="{{ userDetail?.address?.country }}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="bs-modal" (click)="hideUserEditModal()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            
+            <a class="navbar-brand" href="#">
+                <img alt="flaskbook logo" width="82" height="20" src="{{ url_for('static', filename='assets/flaskbook-logo-sm.png') }}">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                {% if session.email %}
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      {% if session.first_name %}
+                        Welcome {{ session.first_name}}
+                      {% else %}
+                        Welcome {{ session.email}}
+                      {% endif %}
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">View profile</a></li>
+                        <li><a href="{{ url_for('auth_web.create_profile') }}">Edit profile</a></li>
+                        <li><a href="#">Change password</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth_web.logout') }}" class="navbar-link">Logout</a></p>
+                </li>
+                {% else %}
+                <li>
+                    
+                    <a href="{{ url_for('auth_web.login') }}" class="navbar-link">Login</a></p>
+                </li>     
+                <li>
+                    
+                    <a href="{{ url_for('auth_web.user_register') }}" class="navbar-link">Register</a></p>
+                </li> 
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

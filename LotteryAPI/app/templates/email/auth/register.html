@@ -1,0 +1,10 @@
+{% extends "email/base.html" %}
+
+{% block body %}
+<h3>Please confirm your registration at Flaskbook</h3>
+<p>Hi {{ email }} and thanks for registering in <b>Flaskbook!</b></p>
+
+<p>To confirm your registration, please click on this link: </br>
+http://{{ config.EXTERNAL_HOST }}:{{ config.EXTERNAL_PORT }}/auth/web/confirm/{{ uid }}/{{ verification_code }}
+</p>
+{% endblock %}
