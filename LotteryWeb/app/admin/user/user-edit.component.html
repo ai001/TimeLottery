@@ -49,6 +49,19 @@
               <div class="col-lg-2">
                 <label for="gender">Gender</label>
                 <div class="clearfix"></div>
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a>Male &nbsp;<i style="cursor: pointer;" class="fa fa-mars"></i></a></li>
+    <li><a>Female &nbsp;<i style="cursor: pointer;" class="fa fa-venus"></i></a></li>
+    <li><a>Prefer not to say &nbsp;<i style="cursor: pointer;" class="fa fa-genderless"></i></a></li>
+  </ul>
+</div>
+
                 <div *ngIf="persEdit == true">
                   <input class="form-control" id="gender" name="gender" type="text" value="{{ userDetail?.gender }}">
                 </div>
