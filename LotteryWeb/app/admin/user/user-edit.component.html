@@ -49,7 +49,6 @@
               <div class="col-lg-2">
                 <label for="gender_dropdown">Gender</label>
                 <div class="clearfix"></div>
-
                 <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" type="button" id="gender_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <div [ngSwitch]="userDetail?.gender">
@@ -63,7 +62,6 @@
                         None &nbsp;<i style="cursor: pointer;" class="fa fa-genderless"></i>&nbsp;<div class="caret"></div>
                       </div>
                     </div>
-                    
                   </button>
                   <ul *ngIf="persEdit == true" class="dropdown-menu" aria-labelledby="gender_dropdown">
                     <li (click)="GenderChange('M')"><a>Male &nbsp;<i style="cursor: pointer;" class="fa fa-mars"></i></a></li>
