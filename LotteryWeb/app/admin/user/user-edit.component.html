@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" [class.disabledbutton]="persLoading == 'error'">
           <div class="panel-heading">Personal Details &ensp;
             <span *ngIf="persLoading == 'fired'">
                 <i class="fa fa-spinner fa-spin fa-1x"></i> Loading...
@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="col-lg-4">
-                <label for="first_name">Last Name</label>
+                <label for="lastname_name">Last Name</label>
                 <div class="clearfix"></div>
                 <div *ngIf="persEdit == true">
                   <input class="form-control" id="last_name" name="last_name" type="text" value="{{ userDetail?.last_name }}">
@@ -47,31 +47,35 @@
                 </div>
               </div>
               <div class="col-lg-2">
-                <label for="gender">Gender</label>
+                <label for="gender_dropdown">Gender</label>
                 <div class="clearfix"></div>
 
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a>Male &nbsp;<i style="cursor: pointer;" class="fa fa-mars"></i></a></li>
-    <li><a>Female &nbsp;<i style="cursor: pointer;" class="fa fa-venus"></i></a></li>
-    <li><a>Prefer not to say &nbsp;<i style="cursor: pointer;" class="fa fa-genderless"></i></a></li>
-  </ul>
-</div>
-
-                <div *ngIf="persEdit == true">
-                  <input class="form-control" id="gender" name="gender" type="text" value="{{ userDetail?.gender }}">
-                </div>
-                <div *ngIf="persEdit != true">
-                  <input class="form-control" readonly id="gender" name="gender" type="text" value="{{ userDetail?.gender }}">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="gender_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <div [ngSwitch]="userDetail?.gender">
+                      <div *ngSwitchCase="'M'">
+                        Male &nbsp;<i style="cursor: pointer;" class="fa fa-mars"></i>&nbsp;<div class="caret"></div>
+                      </div>
+                      <div *ngSwitchCase="'F'">
+                        Female &nbsp;<i style="cursor: pointer;" class="fa fa-venus"></i>&nbsp;<div class="caret"></div>
+                      </div>
+                      <div *ngSwitchDefault>
+                        None &nbsp;<i style="cursor: pointer;" class="fa fa-genderless"></i>&nbsp;<div class="caret"></div>
+                      </div>
+                    </div>
+                    
+                  </button>
+                  <ul *ngIf="persEdit == true" class="dropdown-menu" aria-labelledby="gender_dropdown">
+                    <li (click)="GenderChange('M')"><a>Male &nbsp;<i style="cursor: pointer;" class="fa fa-mars"></i></a></li>
+                    <li (click)="GenderChange('F')"><a>Female &nbsp;<i style="cursor: pointer;" class="fa fa-venus"></i></a></li>
+                    <li (click)="GenderChange('')"><a>None &nbsp;<i style="cursor: pointer;" class="fa fa-genderless"></i></a></li>
+                  </ul>
                 </div>
               </div>
               <div class="col-lg-2">
                 <label for="first_name">Date of Birth</label>
                 <div class="clearfix"></div>
+                <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
                 <div *ngIf="persEdit == true">
                   <input class="form-control" id="date_of_birth" name="date_of_birth" type="text" value="{{ userDetail?.date_of_birth | date: 'dd/MM/yyyy' }}">
                 </div>
@@ -82,7 +86,7 @@
             </div>
           </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-default" [class.disabledbutton]="persLoading == 'error'">
           <div class="panel-heading">Address &ensp;
             <span *ngIf="persLoading == 'fired'">
                 <i class="fa fa-spinner fa-spin fa-1x"></i> Loading...
