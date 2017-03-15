@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 import { User } from './user';
 import { UserDetail } from './userdetail';
-import { USERDETAIL } from './mock-userdetail';
+//import { USERDETAIL } from './mock-userdetail';
 
 @Injectable()
 
@@ -24,9 +24,9 @@ export class UserEditService {
                                   .catch(this.handleError);
     }
 
-    getMockUser(uid: string): Observable<UserDetail> {
-        return Observable.from(USERDETAIL).map(userDetail => USERDETAIL[0]);
-    }
+    // getMockUser(uid: string): Observable<UserDetail> {
+    //     return Observable.from(USERDETAIL).map(userDetail => USERDETAIL[0]);
+    // }
 
     private extractData(res: Response) {
         let body = res.json();

@@ -6,7 +6,34 @@
         <button type="button" class="close" aria-label="Close" (click)="hideUserEditModal()">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Edit user: {{ userDetail?.email }}</h4>
+        <!--h4 class="modal-title">Edit user: {{ userDetail?.email }}</h4-->
+        
+<div class="profile-widget profile-widget-info">
+                          <div class="panel-body">
+                            <div class="col-lg-2 col-sm-2">
+                              <h4>{{ userDetail?.first_name }} {{ userDetail?.last_name }}</h4>               
+                              <div class="avatar img-circle" width="100" height="100">
+                                  <img src="http://lorempixel.com/100/100/people" alt="">
+                              </div>
+                              <h6>Administrator</h6>
+                            </div>
+                            <div class="col-lg-4 col-sm-4 follow-info">
+                                <p>Expire user's password in N days/logins</p>
+                                <p>Logout user</p>
+                                <p>Ban user</p>
+                                <p>Last login info</p>
+                                <p><i class="fa fa-twitter">jenifertweet</i></p>
+                                <h6>
+                                    <span><i class="icon_clock_alt"></i>11:05 AM</span>
+                                    <span><i class="icon_calendar"></i>25.10.13</span>
+                                    <span><i class="icon_pin_alt"></i>NY</span>
+                                </h6>
+                
+
+								            </div>
+                          </div>
+                    </div>
+
       </div>
       <div class="modal-body">
 
@@ -73,12 +100,12 @@
               <div class="col-lg-2">
                 <label for="first_name">Date of Birth</label>
                 <div class="clearfix"></div>
-                <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+                <!--datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker-->
                 <div *ngIf="persEdit == true">
-                  <input class="form-control" id="date_of_birth" name="date_of_birth" type="text" value="{{ userDetail?.date_of_birth | date: 'dd/MM/yyyy' }}">
+                  <input class="form-control" id="date_of_birth" name="date_of_birth" type="date" value="{{ userDetail?.date_of_birth | date: 'yyyy-MM-dd' }}">
                 </div>
                 <div *ngIf="persEdit != true">
-                  <input class="form-control" readonly id="date_of_birth" name="date_of_birth" type="text" value="{{ userDetail?.date_of_birth | date: 'dd/MM/yyyy' }}">
+                  <input class="form-control" readonly id="date_of_birth" name="date_of_birth" type="date" value="{{ userDetail?.date_of_birth | date: 'yyyy-MM-dd' }}">
                 </div>
               </div>
             </div>
